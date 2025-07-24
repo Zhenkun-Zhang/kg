@@ -10,7 +10,7 @@ def get_op(name):
     classes = name.split('.')
     return classes[-1]
 
-def rela_between_op(op1, op2, name1, name2, ver1, ver2, typeJudgement, fra1, fra2, opRelation):
+def between_op(op1, op2, name1, name2, ver1, ver2, typeJudgement, fra1, fra2, opRelation):
     print('MATCH (m1:operator {framework: "%s", name: "%s", full_name: "%s", version: "%s"})' % (fra1, name1, op1, ver1))
     print('MATCH (m2:operator {framework: "%s", name: "%s", full_name: "%s", version: "%s"})' % (fra2, name2, op2, ver2))
     print('MERGE (m1)-[:equivalentOperator {framework_from: "%s", framework_to: "%s", typeJudgement: "%s", version_from: "%s", version_to: "%s", opRelation: "%s"}]->(m2)'  
@@ -18,7 +18,7 @@ def rela_between_op(op1, op2, name1, name2, ver1, ver2, typeJudgement, fra1, fra
     print('MERGE (m2)-[:equivalentOperator {framework_from: "%s", framework_to: "%s", typeJudgement: "%s", version_from: "%s", version_to: "%s", opRelation: "%s"}]->(m1);' 
           % (fra2, fra1, typeJudgement, ver2, ver1, opRelation))
     
-def rela_between_params(op1, op2, param, ver1, ver2, fra1, fra2):
+def between_params(op1, op2, param, ver1, ver2, fra1, fra2):
     print('MATCH (m1: parameter {framework: "%s", operator: "%s", name: "%s", version: "%s"})' % (fra1, op1, list(param.values())[0], ver1))
     print('MATCH (m2: parameter {framework: "%s", operator: "%s", name: "%s", version: "%s"})' % (fra2, op2, list(param.values())[1], ver2))
     print(
@@ -39,9 +39,9 @@ def relationMaker(file_path, fra1, fra2):
         ver1 = data[list(data.keys())[0]]
         ver2 = data[list(data.keys())[1]]
         relations = data["relationship"]
-        for rela in relations:
-            op1 = rela[list(rela.keys())[0]]
-            op2 = rela[list(rela.keys())[1]]
+        for relation in relations:
+            op1 = relation[list(relation.keys())[0]]
+            op2 = relation[list(relation.keys())[1]]
             if op1 == "" or op2 == "":
                 continue
             name1 = op1.split('.')[-1]
@@ -53,10 +53,10 @@ def relationMaker(file_path, fra1, fra2):
                 os.makedirs(dir_path)
             with open(txt, "w", encoding='utf8') as f:
                 sys.stdout = f
-                rela_between_op(op1, op2, name1, name2, ver1, ver2, rela["typeJudgement"], fra1, fra2, rela["opRelation"])
-                params = rela['params']
+                between_op(op1, op2, name1, name2, ver1, ver2, relation["typeJudgement"], fra1, fra2, relation["opRelation"])
+                params = relation['params']
                 for i in params:
-                    rela_between_params(op1, op2, i, ver1, ver2, fra1, fra2)
+                    between_params(op1, op2, i, ver1, ver2, fra1, fra2)
                 sys.stdout = stdoutbak
 
 def process_project(path, fra1, fra2):
@@ -84,4 +84,4 @@ if __name__ == '__main__':
     relation_path = "dao/relation/PyTorch2MindSpore"
     process_project(relation_path, fra1, fra2)
 
-# python src/knowledge_graph/BetweenCyphermaker.py 
+# python src/Cypher/BetweenCypher.py 

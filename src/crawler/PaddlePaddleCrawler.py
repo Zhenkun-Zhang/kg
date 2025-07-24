@@ -203,5 +203,5 @@ if __name__ == '__main__':
     solve(url, save_path, version)
 
 """
-python src/crawler/PaddlePaddleCrawler.py
+python src/Crawler/PaddlePaddleCrawler.py
 """

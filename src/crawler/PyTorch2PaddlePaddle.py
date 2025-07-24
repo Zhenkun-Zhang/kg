@@ -3,7 +3,6 @@ import os
 import json
 import re
 from bs4 import BeautifulSoup
-from Tools import Empty
 
 def contains_chinese(text):
     return bool(re.search('[\u4e00-\u9fa5]', text))
@@ -52,7 +51,6 @@ def getRelation(req, root_path,  PyTorchVersion, PaddlePaddleVersion):
 
 def getFromJson(PyTorchName, PaddlePaddleName, root_path, PyTorchVersion, PaddlePaddleVersion):
     flag = False
-    path = 'dao/relation/empty_PyTorch2PaddlePaddle.txt'
     typeJudgement = "True"
     PyTorchType = ""
     for file in os.listdir(root_path + 'PyTorch/' + PyTorchVersion):
@@ -65,7 +63,6 @@ def getFromJson(PyTorchName, PaddlePaddleName, root_path, PyTorchVersion, Paddle
                 flag = True
                 break
     if not flag:
-        Empty(path, PyTorchName)
         return False
     flag = False
     PaddlePaddleType = ""
@@ -77,7 +74,6 @@ def getFromJson(PyTorchName, PaddlePaddleName, root_path, PyTorchVersion, Paddle
             flag = True
             break
     if not flag:
-        Empty(path, PaddlePaddleName)
         return False
     if PaddlePaddleType != PyTorchType:
         typeJudgement = "False"
@@ -113,4 +109,4 @@ if __name__ == '__main__':
     print(f"算子对文件路径为: {file}")
     print(f"算子对数目为: {list_length}")
 
-# python src/crawler/PyTorch2PaddlePaddle.py
+# python src/Crawler/PyTorch2PaddlePaddle.py

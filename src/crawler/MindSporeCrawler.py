@@ -56,5 +56,5 @@ if __name__ == '__main__':
     solve(root, save_path, version) 
 
 """
-python src/crawler/MindSporeCrawler.py
+python src/Crawler/MindSporeCrawler.py
 """
