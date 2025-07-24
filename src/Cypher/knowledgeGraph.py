@@ -49,7 +49,7 @@ def process_cypher(kg, path):
 if __name__ == '__main__':    
     # 存入图谱
     # MATCH (n) DETACH DELETE n
-    knowledge_graph = knowledgeGraph(clear = True)
+    knowledge_graph = knowledgeGraph(clear = False)
 
     # process_cypher(knowledge_graph, "result/node")
     process_cypher(knowledge_graph, "result/relation")

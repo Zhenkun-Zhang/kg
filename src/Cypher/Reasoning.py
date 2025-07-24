@@ -76,4 +76,4 @@ for i in range(len(parameters_torch2ms)):
                       framework_to: 'PaddlePaddle', version_from: op1.version, version_to: op2.version}]->(op1)
                 """ % (ms_parameter, ms_api, paddle_parameter, paddle_api))
 
-# python src/PaddlePaddle2MindSpore/Reasoning.py
+# python src/Cypher/Reasoning.py
